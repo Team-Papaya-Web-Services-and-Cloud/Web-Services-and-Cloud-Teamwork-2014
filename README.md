@@ -2,7 +2,7 @@
 
 ---
 
-# Web Services and Cloud Technologies – <br/> Team Projects – September, 2014 <br/>
+# Web Services and Cloud Technologies <br/> Team Projects – September, 2014 <br/>
 
 ## Contributors:
 * Martin Nikolov ([@ flextry](https://github.com/flextry))
