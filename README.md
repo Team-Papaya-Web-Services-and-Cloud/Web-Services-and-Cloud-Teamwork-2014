@@ -6,7 +6,8 @@
 
 ## Contributors:
 * Martin Nikolov ([@ flextry](https://github.com/flextry))
-
+* Delcho Argirov ([@ dargirov](https://github.com/dargirov))
+* 
 ## Project Description
 
 [***Read more...***]()
