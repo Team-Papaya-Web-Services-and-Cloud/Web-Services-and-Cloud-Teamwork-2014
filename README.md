@@ -39,4 +39,4 @@ Please define and implement the following assets in your project:
     * __Windows desktop application__ using WPF, Windows Forms or the console
   * The __client application__ must send __HTTP requests__ to the RESTful API
 
-[***Read more...***]()
+[***Read more...***](https://github.com/Team-Papaya-Web-Services-and-Cloud/Web-Services-and-Cloud-Teamwork-2014/blob/master/Teamwork%20-%20Assignment/README.md)
