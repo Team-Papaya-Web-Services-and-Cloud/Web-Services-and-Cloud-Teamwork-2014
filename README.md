@@ -8,6 +8,9 @@
 * Martin Nikolov ([@ flextry](https://github.com/flextry))
 * Delcho Argirov ([@ dargirov](https://github.com/dargirov))
 * Dimityr Katyrov ([@ chichuMitku](https://github.com/chichuMitku))
+* Ivailo Papazov ([@ IvailoPapazov](https://github.com/IvailoPapazov))
+* Milan Drumev ([@ drumev](https://github.com/drumev))
+* Hristo Merdjanov ([@ icom85](https://github.com/icom85))
 
 ## Project Description
 Design and implement a RESTful API, host it in the cloud and develop a client application.
