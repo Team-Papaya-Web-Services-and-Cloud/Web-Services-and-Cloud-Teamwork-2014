@@ -12,7 +12,7 @@
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IVotterDbContext
     {
         public ApplicationDbContext()
-            : base(ConnectionStrings.DefaultConnection, throwIfV1Schema: false)
+            : base("AppHarborConnection", throwIfV1Schema: false)
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
         }
