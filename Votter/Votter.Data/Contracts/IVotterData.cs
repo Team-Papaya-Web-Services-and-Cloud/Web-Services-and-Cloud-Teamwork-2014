@@ -2,10 +2,15 @@
 {
     using System;
     using System.Linq;
+    using Votter.Models;
 
     public interface IVotterData : IDisposable
     {
-        // IGenericRepository<Model> Models { get; }
+        IGenericRepository<Picture> Pictures { get; }
+
+        IGenericRepository<Category> Categories { get; }
+
+        IGenericRepository<Vote> Votes { get; }
 
         int SaveChanges();
     }

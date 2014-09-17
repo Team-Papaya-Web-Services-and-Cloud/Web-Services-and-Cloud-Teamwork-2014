@@ -68,15 +68,20 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Votter.Data\Votter.Data.csproj">
+      <Project>{4EE53577-9B71-4B61-98D0-C2BA6182749E}</Project>
+      <Name>Votter.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Votter.DropboxApi\Votter.DropboxApi.csproj">
       <Project>{ffd64aba-5379-4bcc-98ce-3df8ca2720d8}</Project>
       <Name>Votter.DropboxApi</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Votter.Models\Votter.Models.csproj">
+      <Project>{4e89d151-c1d6-4c23-b0c2-4c28c129832f}</Project>
+      <Name>Votter.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Readme\Spring.Rest.txt" />
-    <Content Include="App_Readme\Spring.Social.Core.txt" />
-    <Content Include="App_Readme\Spring.Social.Dropbox.txt" />
     <Content Include="Resources\1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

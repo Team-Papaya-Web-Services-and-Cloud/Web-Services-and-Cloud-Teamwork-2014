@@ -11,7 +11,7 @@
         <div class="navbar-collapse collapse" id="navbar-main">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="#/ranklist/">Vote for persons</a>
+                    <a href="#/ranklist/" ng-show="isLoggedIn">Vote for persons</a>
                 </li>
                 <li>
                     <a href="#/ranklist/">Ranklist</a>
@@ -20,10 +20,10 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="#/ranklist/">Register</a>
+                    <a href="#/signup/" ng-hide="isLoggedIn">Register</a>
                 </li>
                 <li>
-                    <a href="#/ranklist/">Login</a>
+                    <a href="#/signin/" ng-hide="isLoggedIn">Login</a>
                 </li>
             </ul>
         </div>

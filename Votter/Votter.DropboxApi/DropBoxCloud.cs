@@ -1,23 +1,18 @@
-﻿namespace DropBoxTest.Data
+﻿namespace Votter.DropboxApi
 {
     using System;
-    using System.Collections.Generic;
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Diagnostics;
-
-    using Spring.Social.OAuth1;
+    using Spring.IO;
     using Spring.Social.Dropbox.Api;
     using Spring.Social.Dropbox.Connect;
-    using Spring.IO;
+    using Spring.Social.OAuth1;
 
     public class DropBoxCloud
     {
         private const string DropboxAppKey = "u5gmyjpg19cg66v";
         private const string DropboxAppSecret = "3ry0ttv14dh4l9d";
-
         private const string OAuthTokenFileName = "../../Resources/OAuthTokenFileName.txt";
 
         private string dropboxAppKey;
@@ -37,6 +32,13 @@
             this.dropboxApi = this.GetDropboxApi();
         }
 
+        public Entry UploadToCloud(FileResource resource, string folder)
+        {
+            Entry uploadFileEntry = this.dropboxApi.UploadFileAsync(resource, folder).Result;
+
+            return uploadFileEntry;
+        }
+
         private IDropbox GetDropboxApi()
         {
             DropboxServiceProvider serviceProvider = this.Initialize(this.dropboxAppKey, this.dropboxAppSecret);
@@ -45,36 +47,19 @@
             return currentDropboxApi;
         }
 
-        public Entry UploadToCloud(FileResource resource, string folder)
-        {
-            Entry uploadFileEntry = this.dropboxApi.UploadFileAsync(resource, folder).Result;
-
-            return uploadFileEntry;
-        }
-
-        //public IEnumerable<T> DownloadFromCloud<T>(string collectionName)
-        //{
-        //    this.Initialize(this.dropboxAppKey, this.dropboxAppSecret);
-
-        //    // TODO: Implementation
-
-        //    return null;
-        //}
-
         private DropboxServiceProvider Initialize(string key, string secret)
         {
             DropboxServiceProvider dropboxServiceProvider = new DropboxServiceProvider(key, secret, AccessLevel.Full);
 
             if (!File.Exists(OAuthTokenFileName))
             {
-                AuthorizeAppOAuth(dropboxServiceProvider);
+                this.AuthorizeAppOAuth(dropboxServiceProvider);
             }
 
-            this.oauthAccessToken = LoadOAuthToken();
+            this.oauthAccessToken = this.LoadOAuthToken();
 
             return dropboxServiceProvider;
         }
-
 
         private void AuthorizeAppOAuth(DropboxServiceProvider dropboxServiceProvider)
         {

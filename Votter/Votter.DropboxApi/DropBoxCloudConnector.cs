@@ -1,15 +1,9 @@
-﻿namespace DropBoxTest.Data
+﻿namespace Votter.DropboxApi
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
-    using Spring.Social.OAuth1;
-    using Spring.Social.Dropbox.Api;
-    using Spring.Social.Dropbox.Connect;
     using Spring.IO;
+    using Spring.Social.Dropbox.Api;
 
     public class DropBoxCloudConnector
     {
@@ -27,12 +21,10 @@
             this.dropBoxCloud = dropBoxCloud;
         }
 
-
         public Entry UploadPicturesToCloud(FileResource resource)
         {
             string collection = "/" + PictureCollection + "/" + DateTime.Now + ".png";
             var entry = this.dropBoxCloud.UploadToCloud(resource, collection);
-
             return entry;
         }
     }

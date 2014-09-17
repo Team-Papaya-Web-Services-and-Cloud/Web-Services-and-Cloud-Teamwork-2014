@@ -17,6 +17,12 @@
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
         }
 
+        public IDbSet<Category> Categories { get; set; }
+
+        public IDbSet<Picture> Pictures { get; set; }
+
+        public IDbSet<Vote> Votes { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

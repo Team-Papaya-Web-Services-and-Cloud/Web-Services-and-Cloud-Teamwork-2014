@@ -6,6 +6,7 @@
     using System.Linq;
     using Votter.Data.Contracts;
     using Votter.Data.Repositories;
+    using Votter.Models;
 
     public class VotterData : IVotterData
     {
@@ -20,6 +21,30 @@
         public VotterData(DbContext context)
         {
             this.context = context;
+        }
+
+        public IGenericRepository<Picture> Pictures
+        {
+            get
+            {
+                return this.GetRepository<Picture>();
+            }
+        }
+
+        public IGenericRepository<Category> Categories
+        {
+            get
+            {
+                return this.GetRepository<Category>();
+            }
+        }
+
+        public IGenericRepository<Vote> Votes
+        {
+            get
+            {
+                return this.GetRepository<Vote>();
+            }
         }
 
         public int SaveChanges()

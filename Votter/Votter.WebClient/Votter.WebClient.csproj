@@ -61,6 +61,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="scripts\controllers\RegistrationController.js" />
+    <Content Include="scripts\controllers\LoginController.js" />
     <Content Include="scripts\lib\angular\angular-animate.min.js.map" />
     <Content Include="scripts\lib\angular\angular-cookies.min.js.map" />
     <Content Include="scripts\lib\angular\angular-loader.min.js.map" />
@@ -369,6 +371,8 @@
     <Content Include="templates\directives\modal-window.html" />
     <Content Include="templates\directives\navigation-bar.html" />
     <Content Include="templates\home.html" />
+    <Content Include="templates\signin.html" />
+    <Content Include="templates\signup.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

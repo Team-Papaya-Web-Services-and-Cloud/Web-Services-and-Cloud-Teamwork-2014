@@ -6,6 +6,12 @@ var votterApp = angular.module('votterApp', ['ngResource', 'ngRoute'])
             .when('/', {
                 templateUrl: 'templates/home.html'
             })
+            .when('/signin', {
+                templateUrl: 'templates/signin.html'
+            })
+            .when('/signup', {
+                templateUrl: 'templates/signup.html'
+            })
             .otherwise({redirectTo: '/'});
     })
     .constant('author', 'Papaya Team')
