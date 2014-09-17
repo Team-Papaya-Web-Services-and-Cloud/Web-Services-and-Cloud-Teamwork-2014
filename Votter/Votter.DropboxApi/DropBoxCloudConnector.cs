@@ -23,9 +23,23 @@
 
         public Entry UploadPicturesToCloud(FileResource resource)
         {
-            string collection = "/" + PictureCollection + "/" + DateTime.Now + ".png";
+            string collection = "/" + PictureCollection + "/" + resource.File.Name;
             var entry = this.dropBoxCloud.UploadToCloud(resource, collection);
             return entry;
+        }
+
+        public Entry GetAllPictures()
+        {
+            var pictures = this.dropBoxCloud.GetAllMediaFiles(PictureCollection);
+
+            return pictures;
+        }
+
+        public DropboxLink GetPictureLink(string path)
+        {
+            var pictureLink = this.dropBoxCloud.GetMediaLink(path);
+
+            return pictureLink;
         }
     }
 }

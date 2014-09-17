@@ -39,6 +39,20 @@
             return uploadFileEntry;
         }
 
+        public DropboxLink GetMediaLink(string path)
+        {
+            var mediaLink = this.dropboxApi.GetMediaLinkAsync(path).Result;
+
+            return mediaLink;
+        }
+
+        public Entry GetAllMediaFiles(string path)
+        {
+            var mediaLink = this.dropboxApi.GetMetadataAsync(path).Result;
+
+            return mediaLink;
+        }
+
         private IDropbox GetDropboxApi()
         {
             DropboxServiceProvider serviceProvider = this.Initialize(this.dropboxAppKey, this.dropboxAppSecret);
