@@ -192,3 +192,8 @@ input.sign-in-password-input.form-control
     margin-top: 5px;
     margin-bottom: 10px;
 }
+
+.image-container img.img-container {
+    width: 333px;
+    height: 500px;
+}

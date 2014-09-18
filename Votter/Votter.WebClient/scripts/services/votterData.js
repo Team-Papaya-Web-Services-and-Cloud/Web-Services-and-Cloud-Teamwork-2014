@@ -30,12 +30,13 @@ votterApp.factory('votterData', function ($resource, $q, $http) {
         },
         login: function (email, password) {
             var deferred = $q.defer();
+
             $http.post('http://localhost:49443/Token', {
-                username: email,
-                password: password,
-                grant_type: "password"
-            },
-            {
+                    username: email,
+                    password: password,
+                    grant_type: "password"
+                },
+                {
                 transformRequest: function (obj) {
                     var str = [];
                     for (var p in obj)
