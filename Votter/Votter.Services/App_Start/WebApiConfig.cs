@@ -1,7 +1,6 @@
 ﻿namespace Votter.Services
 {
     using System.Web.Http;
-    using System.Web.Http.Cors;
     using Microsoft.Owin.Security.OAuth;
     using Newtonsoft.Json;
 
