@@ -12,7 +12,7 @@ var votterApp = angular.module('votterApp', ['ngResource', 'ngRoute'])
             .when('/signup', {
                 templateUrl: 'templates/signup.html'
             })
-            .otherwise({redirectTo: '/'});
+            .otherwise({ redirectTo: '/' });
     })
     .constant('author', 'Papaya Team')
     .constant('copyright', 'Telerik Academy');

@@ -5,13 +5,14 @@
     using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
+    using System.Web.Http.Cors;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
     using Microsoft.Owin.Security.Cookies;
     using Microsoft.Owin.Security.OAuth;
     using Votter.Models;
-    using Votter.Services.Models;
 
+    [EnableCors("*", "*", "*")]
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
         private readonly string _publicClientId;

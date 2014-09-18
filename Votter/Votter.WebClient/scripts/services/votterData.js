@@ -1,7 +1,7 @@
 'use strict';
 
 votterApp.factory('votterData', function ($resource, $q, $http) {
-    var url = 'http://ratemygirlfriendservices.apphb.com/';
+    var url = 'http://localhost:49443/';
 
     return {
         register: function (email, password) {
@@ -9,11 +9,30 @@ votterApp.factory('votterData', function ($resource, $q, $http) {
 
             $http({
                 method: 'POST',
-                url: url + 'Account/Register',
+                url: url + 'api/Account/Register',
                 data: {
                     Email: email,
                     Password: password,
                     ConfirmPassword: password
+                }
+            })
+            .success(function (data, status, headers, config) {
+                deferred.resolve(data);
+            })
+
+            return deferred.promise;
+        },
+        login: function (email, password) {
+            var deferred = $q.defer();
+
+            $http({
+                method: 'POST',
+                url: url + 'Token',
+                data: {
+                    "grant_type": "password",
+                    Email: email,
+                    Username: email,
+                    Password: password,
                 }
             })
             .success(function (data, status, headers, config) {
