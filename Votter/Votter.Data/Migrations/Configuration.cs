@@ -28,27 +28,27 @@ namespace Votter.Data.Migrations
 
             context.Categories.Add(new Category()
             {
-                Description = "Men"
+                Name = "Men"
             });
 
             context.Categories.Add(new Category()
             {
-                Description = "Women"
+                Name = "Women"
             });
 
             context.Categories.Add(new Category()
             {
-                Description = "Trainers"
+                Name = "Trainers"
             });
 
             context.Categories.Add(new Category()
             {
-                Description = "Cars"
+                Name = "Cars"
             });
 
             context.Categories.Add(new Category()
             {
-                Description = "Animals"
+                Name = "Animals"
             });
 
             context.SaveChanges();
