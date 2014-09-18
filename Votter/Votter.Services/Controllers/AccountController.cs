@@ -22,7 +22,6 @@
 
     [Authorize]
     [RoutePrefix("api/Account")]
-    [EnableCors("*", "*", "*")]
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";

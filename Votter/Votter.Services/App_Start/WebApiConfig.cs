@@ -22,7 +22,7 @@
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional });
 
-            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
+            config.EnableCors();
 
             config.Formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.None;
             config.Formatters.Remove(config.Formatters.XmlFormatter);
