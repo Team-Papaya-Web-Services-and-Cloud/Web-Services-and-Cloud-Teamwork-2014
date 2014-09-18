@@ -29,7 +29,7 @@ namespace Votter.Services.Controllers
         // GET: api/Pictures
         public IQueryable<PictureModel> GetPictures()
         {
-            return db.Pictures.Select(x => new PictureModel() { Id = x.PictureId, Link = x.Link });
+            return db.Pictures.Select(x => new PictureModel() { Id = x.PictureId, Link = x.Link, CategoryId = x.CategoryId });
         }
 
         // GET: api/Pictures/5
@@ -39,8 +39,11 @@ namespace Votter.Services.Controllers
         {
             PictureModel picture = db.Pictures
                 .Where(x=>x.PictureId == id)
-                .Select(x => new PictureModel()
-                                { Id = x.PictureId, Link = x.Link })
+                .Select(x => 
+                    new PictureModel()
+                                { 
+                                    Id = x.PictureId, Link = x.Link, CategoryId = x.CategoryId 
+                                })
                 .FirstOrDefault();
 
             if (picture == null)
@@ -51,30 +54,13 @@ namespace Votter.Services.Controllers
             return Ok(picture);
         }
 
-      //  public IHttpActionResult GetPictureByIdAndCatalogId(int picId, int catId)
-      //  {
-      //      this.db.Pictures.Where(x => x.PictureId == picId 
-      //          && x.CategoryId == catId);
-      //      if (picture == null)
-      //      {
-      //          return NotFound();
-      //      }
-      //
-      //      return Ok(picture);
-      //  }
-
         // PUT: api/Pictures/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutPicture(int id, Picture picture)
+        public IHttpActionResult PutPicture(PictureModel picture)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }
-
-            if (id != picture.PictureId)
-            {
-                return BadRequest();
             }
 
             db.Entry(picture).State = EntityState.Modified;
@@ -85,18 +71,20 @@ namespace Votter.Services.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PictureExists(id))
+                if (!PictureExists(picture.Id))
                 {
                     return NotFound();
                 }
                 else
                 {
-                    throw;
+                    throw new ArgumentException("The picture Id wasn't valid");
                 }
             }
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+
+
 
         // POST: api/Pictures
         [ResponseType(typeof(Picture))]

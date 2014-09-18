@@ -9,5 +9,6 @@ namespace Votter.Services.Models
     {
         public int Id { get; set; }
         public string Link { get; set; }
+        public int CategoryId { get; set; }
     }
 }
