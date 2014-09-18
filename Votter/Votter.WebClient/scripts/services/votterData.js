@@ -30,8 +30,6 @@ votterApp.factory('votterData', function ($resource, $q, $http) {
         },
         login: function (email, password) {
             var deferred = $q.defer();
-            console.log(email)
-            console.log(password)
             $http.post('http://localhost:49443/Token', {
                 username: email,
                 password: password,
@@ -49,7 +47,6 @@ votterApp.factory('votterData', function ($resource, $q, $http) {
                 }
             })
             .success(function (data, status, headers, config) {
-                console.log(data)
                 deferred.resolve(data);
             })
 

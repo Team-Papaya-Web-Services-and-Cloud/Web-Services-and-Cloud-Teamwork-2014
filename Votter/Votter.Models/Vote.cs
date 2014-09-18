@@ -9,12 +9,12 @@
         [Key]
         public int VoteId { get; set; }
 
-        public Guid ApplicationUserId { get; set; }
+        public string ApplicationUserId { get; set; }
 
         public virtual ApplicationUser ApplicationUser { get; set; }
- 
-        public int UpVotePictureId { get; set; }
 
-        public int DownVotePictureId { get; set; }
+        public virtual Picture UpVotePicture { get; set; }
+
+        public virtual Picture DownVotePicture { get; set; }
     }
 }

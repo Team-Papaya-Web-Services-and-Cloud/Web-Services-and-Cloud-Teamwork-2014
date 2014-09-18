@@ -13,7 +13,7 @@
         [Key]
         public int PictureId { get; set; }
 
-        public Guid ApplicationUserId { get; set; }
+        public string ApplicationUserId { get; set; }
 
         public virtual ApplicationUser ApplicationUser { get; set; }
 
