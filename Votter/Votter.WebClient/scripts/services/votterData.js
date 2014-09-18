@@ -1,7 +1,7 @@
 'use strict';
 
 votterApp.factory('votterData', function ($resource, $q, $http) {
-    var url = 'http://localhost:49443/';
+    var url = 'http://ratemygirlfriendservices.apphb.com/';
 
     return {
         register: function (email, password) {
