@@ -18,7 +18,7 @@
                 </li>
             </ul>
 
-            <ul class="nav navbar-nav navbar-right" ng-show="isLoggedIn">
+            <ul class="nav navbar-nav navbar-right" ng-hide="isLoggedIn">
                 <li>
                     <a href="#/signup/">Register</a>
                 </li>
@@ -27,7 +27,7 @@
                 </li>
             </ul>
 
-            <ul class="nav navbar-nav navbar-right" ng-hide="isLoggedIn">
+            <ul class="nav navbar-nav navbar-right" ng-show="isLoggedIn">
                 <li>
                     <a>Hello, {{ username }}</a>
                 </li>
