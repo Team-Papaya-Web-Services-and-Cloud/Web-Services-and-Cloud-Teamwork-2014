@@ -37,7 +37,5 @@
         {
             base.SaveChanges();
         }
-
-        //public System.Data.Entity.DbSet<Votter.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }
