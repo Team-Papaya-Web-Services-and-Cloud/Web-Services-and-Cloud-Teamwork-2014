@@ -38,6 +38,6 @@
             base.SaveChanges();
         }
 
-        public System.Data.Entity.DbSet<Votter.Models.ApplicationUser> ApplicationUsers { get; set; }
+        //public System.Data.Entity.DbSet<Votter.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }

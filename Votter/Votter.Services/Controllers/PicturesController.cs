@@ -12,6 +12,7 @@ using Votter.Data;
 using Votter.Models;
 using Votter.Data.Repositories;
 using Votter.Data.Contracts;
+using Votter.Services.Models;
 
 namespace Votter.Services.Controllers
 {
@@ -26,16 +27,22 @@ namespace Votter.Services.Controllers
         }
 
         // GET: api/Pictures
-        public IQueryable<Picture> GetPictures()
+        public IQueryable<PictureModel> GetPictures()
         {
-            return db.Pictures;
+            return db.Pictures.Select(x => new PictureModel() { Id = x.PictureId, Link = x.Link });
         }
 
         // GET: api/Pictures/5
-        [ResponseType(typeof(Picture))]
+        [HttpGet]
+        [ResponseType(typeof(PictureModel))]
         public IHttpActionResult GetPicture(int id)
         {
-            Picture picture = db.Pictures.Find(id);
+            PictureModel picture = db.Pictures
+                .Where(x=>x.PictureId == id)
+                .Select(x => new PictureModel()
+                                { Id = x.PictureId, Link = x.Link })
+                .FirstOrDefault();
+
             if (picture == null)
             {
                 return NotFound();
@@ -43,6 +50,18 @@ namespace Votter.Services.Controllers
 
             return Ok(picture);
         }
+
+      //  public IHttpActionResult GetPictureByIdAndCatalogId(int picId, int catId)
+      //  {
+      //      this.db.Pictures.Where(x => x.PictureId == picId 
+      //          && x.CategoryId == catId);
+      //      if (picture == null)
+      //      {
+      //          return NotFound();
+      //      }
+      //
+      //      return Ok(picture);
+      //  }
 
         // PUT: api/Pictures/5
         [ResponseType(typeof(void))]
