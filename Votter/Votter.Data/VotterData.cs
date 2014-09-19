@@ -47,6 +47,14 @@
             }
         }
 
+        public IGenericRepository<Score> Scores
+        {
+            get
+            {
+                return this.GetRepository<Score>();
+            }
+        }
+
         public int SaveChanges()
         {
             return this.context.SaveChanges();

@@ -87,6 +87,11 @@ namespace Votter.Services.Controllers
             return Ok(picture);
         }
 
+        /// <summary>
+        /// Modifies an already uplaoded picture
+        /// </summary>
+        /// <param name="picture">new picture model</param>
+        /// <returns>Http Result</returns>
         [HttpPut]
         public IHttpActionResult PutPicture(PictureModel picture)
         {
@@ -95,7 +100,8 @@ namespace Votter.Services.Controllers
                 return BadRequest(ModelState);
             }
 
-
+            // TODO Add validations
+            this.data.Pictures.Find(picture.Id).Link = picture.Link;
 
             try
             {

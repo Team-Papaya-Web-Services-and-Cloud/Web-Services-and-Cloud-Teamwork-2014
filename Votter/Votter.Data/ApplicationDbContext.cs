@@ -23,6 +23,9 @@
 
         public IDbSet<Vote> Votes { get; set; }
 
+        public IDbSet<Score> Score { get; set; }
+
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
