@@ -61,6 +61,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="scripts\controllers\UploadPictureController.js" />
     <Content Include="scripts\controllers\VoteForPersonsController.js" />
     <Content Include="scripts\controllers\RegistrationController.js" />
     <Content Include="scripts\controllers\LoginController.js" />
@@ -371,6 +372,7 @@
     <Content Include="templates\directives\footer.html" />
     <Content Include="templates\directives\modal-window.html" />
     <Content Include="templates\directives\navigation-bar.html" />
+    <Content Include="templates\upload-picture.html" />
     <Content Include="templates\vote-for-persons.html" />
     <Content Include="templates\home.html" />
     <Content Include="templates\signin.html" />
