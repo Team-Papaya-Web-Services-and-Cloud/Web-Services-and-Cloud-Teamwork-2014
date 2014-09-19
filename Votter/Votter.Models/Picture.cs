@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
     /// <summary>
@@ -13,7 +14,10 @@
         [Key]
         public int PictureId { get; set; }
 
-        public Guid ApplicationUserId { get; set; }
+        [ForeignKey("ApplicationUser")]
+        public string ApplicationUserId { get; set; }
+
+        public virtual ApplicationUser ApplicationUser { get; set; }
 
         public int CategoryId { get; set; }
 

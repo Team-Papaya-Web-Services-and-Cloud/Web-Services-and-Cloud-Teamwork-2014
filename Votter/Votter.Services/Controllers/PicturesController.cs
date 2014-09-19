@@ -34,7 +34,7 @@ namespace Votter.Services.Controllers
                                 Id = x.PictureId, 
                                 Link = x.Link, 
                                 CategoryId = x.CategoryId, 
-                                ApplicationUserId = x.ApplicationUserId 
+                                ApplicationUserId = x.ApplicationUserId.ToString()
                             });
         }
 
@@ -50,7 +50,7 @@ namespace Votter.Services.Controllers
                                     Id = x.PictureId, 
                                     Link = x.Link, 
                                     CategoryId = x.CategoryId,
-                                    ApplicationUserId = x.ApplicationUserId
+                                    ApplicationUserId = x.ApplicationUserId.ToString()
                                 })
                 .FirstOrDefault();
 
