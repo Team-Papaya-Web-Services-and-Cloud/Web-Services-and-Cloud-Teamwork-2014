@@ -10,7 +10,7 @@ namespace Votter.Models
     {
         public int Id { get; set; }
 
-        public double Points { get; set; }
+        public int Points { get; set; }
 
         public int PictureId { get; set; }
 
