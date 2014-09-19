@@ -197,3 +197,7 @@ input.sign-in-password-input.form-control
     width: 333px;
     height: 500px;
 }
+
+.upload-btn {
+    margin-top: 5px;
+}

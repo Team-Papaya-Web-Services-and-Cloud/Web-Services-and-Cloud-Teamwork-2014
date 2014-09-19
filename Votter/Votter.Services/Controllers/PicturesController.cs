@@ -18,8 +18,8 @@ namespace Votter.Services.Controllers
 {
     public class PicturesController : ApiController
     {
-        private static Random random = new Random();
-        private VotterData data;
+        private static readonly Random random = new Random();
+        private readonly VotterData data;
 
         public PicturesController()
         {
@@ -39,14 +39,12 @@ namespace Votter.Services.Controllers
                             });
         }
 
-        public IQueryable<PictureModel> GetRandomPictureFromRandomCategory()
+        [HttpGet]
+        public IQueryable<PictureModel> GetTwoRandomPicsFromCategory(int categoryId)
         {
-            int randomCategory = GetRandomCategoryId();
-
-
             return this.data.Pictures
                             .All()
-                            .Where(p => p.CategoryId == randomCategory)
+                            .Where(p => p.CategoryId == categoryId)
                             .Select(x => new PictureModel()
                             {
                                 Id = x.PictureId,
@@ -58,20 +56,10 @@ namespace Votter.Services.Controllers
         }
 
         [HttpGet]
-        public IQueryable<PictureModel> GetTwoRandomPicsFromCategory(int categoryID)
+        public IQueryable<PictureModel> GetRandomPictureFromRandomCategory()
         {
-
-            return this.data.Pictures
-                            .All()
-                            .Where(p => p.CategoryId == categoryID)
-                            .Select(x => new PictureModel()
-                            {
-                                Id = x.PictureId,
-                                Link = x.Link,
-                                CategoryId = x.CategoryId,
-                                ApplicationUserId = x.ApplicationUserId
-                            })
-                            .Take(2);
+            int randomCategory = GetRandomCategoryId();
+            return GetTwoRandomPicsFromCategory(randomCategory);
         }
 
         [HttpGet]
@@ -97,36 +85,34 @@ namespace Votter.Services.Controllers
             return Ok(picture);
         }
 
-        // PUT: api/Pictures/5
-        //[ResponseType(typeof(void))]
-        //public IHttpActionResult PutPicture(PictureModel picture)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    } 
+        [HttpPut]
+        public IHttpActionResult PutPicture(PictureModel picture)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    this.data.Pictures.Entry(picture).State = EntityState.Modified;
+            //this.data.Pictures.Entry(picture).State = EntityState.Modified;
 
-        //    try
-        //    {
-        //        this.data.SaveChanges();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!PictureExists(picture.Id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw new ArgumentException("The picture Id wasn't valid");
-        //        }
-        //    }
+            try
+            {
+                this.data.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PictureExists(picture.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw new ArgumentException("The picture Id wasn't valid");
+                }
+            }
 
-        //    return StatusCode(HttpStatusCode.NoContent);
-        //}
-
+            return StatusCode(HttpStatusCode.NoContent);
+        }
 
         [HttpPost]
         public IHttpActionResult PostPicture(PictureModel p)

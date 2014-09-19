@@ -15,6 +15,9 @@ var votterApp = angular.module('votterApp', ['ngResource', 'ngRoute'])
             .when('/vote-for-persons', {
                 templateUrl: 'templates/vote-for-persons.html'
             })
+            .when('/upload-picture', {
+                templateUrl: 'templates/upload-picture.html'
+            })
             .otherwise({ redirectTo: '/' });
     })
     .constant('author', 'Papaya Team')
