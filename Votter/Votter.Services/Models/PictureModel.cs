@@ -8,6 +8,7 @@ namespace Votter.Services.Models
     public class PictureModel
     {
         public int Id { get; set; }
+        public Guid ApplicationUserId { get; set; }
         public string Link { get; set; }
         public int CategoryId { get; set; }
     }

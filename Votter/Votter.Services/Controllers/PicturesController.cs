@@ -29,7 +29,13 @@ namespace Votter.Services.Controllers
         {
             return this.data.Pictures
                             .All()
-                            .Select(x => new PictureModel() { Id = x.PictureId, Link = x.Link, CategoryId = x.CategoryId });
+                            .Select(x => new PictureModel() 
+                            { 
+                                Id = x.PictureId, 
+                                Link = x.Link, 
+                                CategoryId = x.CategoryId, 
+                                ApplicationUserId = x.ApplicationUserId 
+                            });
         }
 
         [HttpGet]
@@ -41,7 +47,10 @@ namespace Votter.Services.Controllers
                 .Select(x => 
                     new PictureModel()
                                 { 
-                                    Id = x.PictureId, Link = x.Link, CategoryId = x.CategoryId 
+                                    Id = x.PictureId, 
+                                    Link = x.Link, 
+                                    CategoryId = x.CategoryId,
+                                    ApplicationUserId = x.ApplicationUserId
                                 })
                 .FirstOrDefault();
 
@@ -85,22 +94,26 @@ namespace Votter.Services.Controllers
 
 
         [HttpPost]
-        [ResponseType(typeof(Picture))]
-        public IHttpActionResult PostPicture(Picture picture)
+        public IHttpActionResult PostPicture(PictureModel p)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            this.data.Pictures.Add(picture);
+            this.data.Pictures
+                     .Add(new Picture()
+                     {
+                         CategoryId = p.CategoryId,
+                         ApplicationUserId = p.ApplicationUserId,
+                         Link = p.Link
+                     });
+            
             this.data.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = picture.PictureId }, picture);
+            return CreatedAtRoute("DefaultApi", new { id = p.Id }, p);
         }
 
-        // DELETE: api/Pictures/5
-        [ResponseType(typeof(Picture))]
+        [HttpDelete]
         public IHttpActionResult DeletePicture(int id)
         {
             Picture picture = this.data.Pictures.Find(id);
@@ -112,7 +125,7 @@ namespace Votter.Services.Controllers
             this.data.Pictures.Delete(picture);
             this.data.SaveChanges();
 
-            return Ok(picture);
+            return Ok(string.Format("Picture {0} DELETED", id));
         }
 
         protected override void Dispose(bool disposing)
