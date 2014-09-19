@@ -3,9 +3,11 @@
     using System;
     using Spring.IO;
     using System.Linq;
+    using System.Threading.Tasks;
 
     using Votter.Data;
     using Votter.DropboxApi;
+    using Votter.PubnubApi;
 
     public class VotterConsoleClient
     {
@@ -15,7 +17,7 @@
         {
             //Console.WriteLine(votterData.Pictures.All().Count());
 
-            // Testing
+            // Testing Dropbox
             var dropbox = new DropBoxCloudConnector();
 
             string testPicture = @"../../Resources/1.png";
@@ -33,6 +35,16 @@
             var picTwoLink = dropbox.GetPictureLink(picTwoFilePath);
             Console.WriteLine(picOneLink.Url);
             Console.WriteLine(picTwoLink.Url);
+
+            // Testing Pubnub
+            var pubnub = new PubnubAlert();
+            pubnub.Start();
+            while (true)
+            {
+                string msg = Console.ReadLine();
+
+                pubnub.PublishMessage(msg);
+            }
         }
     }
 }

@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Votter.WebClient", "Votter.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Votter.DropboxApi", "Votter.DropboxApi\Votter.DropboxApi.csproj", "{FFD64ABA-5379-4BCC-98CE-3DF8CA2720D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Votter.PubnubApi", "Votter.PubnubApi\Votter.PubnubApi.csproj", "{59E50A8E-4825-46DD-A92B-C51E2B07DB55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{FFD64ABA-5379-4BCC-98CE-3DF8CA2720D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFD64ABA-5379-4BCC-98CE-3DF8CA2720D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFD64ABA-5379-4BCC-98CE-3DF8CA2720D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59E50A8E-4825-46DD-A92B-C51E2B07DB55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59E50A8E-4825-46DD-A92B-C51E2B07DB55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59E50A8E-4825-46DD-A92B-C51E2B07DB55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59E50A8E-4825-46DD-A92B-C51E2B07DB55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
