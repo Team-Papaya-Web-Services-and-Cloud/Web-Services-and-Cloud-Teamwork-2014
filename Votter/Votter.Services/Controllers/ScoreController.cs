@@ -26,13 +26,17 @@ namespace Votter.Services.Controllers
             data = new VotterData();
         }
 
-        public IQueryable<ScoreModel> GetRank(int topScoresUpperLimit)   
+        [HttpGet]
+        public IQueryable<ScoreModel> GetRank(int topScoresUpperLimit)
         {
-            return this.data.Scores.All().OrderBy(r => r.
-                                                    
+            return this.data.Scores.All().OrderByDescending(r => r.Points).Take(topScoresUpperLimit);
         }
 
-
+        [HttpGet]
+        public ScoreModel GetRankByPictureId(int pictureId)
+        {
+            return this.data.Scores.All().Where(x => x.Id == pictureId);
+        }
 
         protected override void Dispose(bool disposing)
         {
