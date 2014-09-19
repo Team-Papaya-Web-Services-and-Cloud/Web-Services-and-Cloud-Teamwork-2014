@@ -7,7 +7,8 @@
 
     public class DropBoxCloudConnector
     {
-        private const string PictureCollection = "Pictures";
+        private const string GirlsCollection = "Girls";
+        private const string BoysCollection = "Boys";
 
         private readonly DropBoxCloud dropBoxCloud;
 
@@ -21,18 +22,32 @@
             this.dropBoxCloud = dropBoxCloud;
         }
 
-        public Entry UploadPicturesToCloud(FileResource resource)
+        public Entry UploadGirlsToCloud(FileResource resource)
         {
-            string collection = "/" + PictureCollection + "/" + resource.File.Name;
+            string collection = "/" + GirlsCollection + "/" + resource.File.Name;
             var entry = this.dropBoxCloud.UploadToCloud(resource, collection);
             return entry;
         }
 
-        public Entry GetAllPictures()
+        public Entry UploadBoysToCloud(FileResource resource)
         {
-            var pictures = this.dropBoxCloud.GetAllMediaFiles(PictureCollection);
+            string collection = "/" + BoysCollection + "/" + resource.File.Name;
+            var entry = this.dropBoxCloud.UploadToCloud(resource, collection);
+            return entry;
+        }
 
-            return pictures;
+        public Entry GetAllPicturesGirls()
+        {
+            var girlPctures = this.dropBoxCloud.GetAllMediaFiles(GirlsCollection);
+
+            return girlPctures;
+        }
+
+        public Entry GetAllPicturesBoys()
+        {
+            var boyPctures = this.dropBoxCloud.GetAllMediaFiles(GirlsCollection);
+
+            return boyPctures;
         }
 
         public DropboxLink GetPictureLink(string path)

@@ -13,7 +13,7 @@
     {
         private const string DropboxAppKey = "u5gmyjpg19cg66v";
         private const string DropboxAppSecret = "3ry0ttv14dh4l9d";
-        private const string OAuthTokenFileName = "../../Resources/OAuthTokenFileName.txt";
+        private const string OAuthTokenFileName = "../../../Votter.DropboxApi/Resources/OAuthTokenFileName.txt";
 
         private string dropboxAppKey;
         private string dropboxAppSecret;

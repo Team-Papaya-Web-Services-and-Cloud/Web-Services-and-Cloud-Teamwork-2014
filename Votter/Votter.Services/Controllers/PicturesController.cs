@@ -1,131 +1,137 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web.Http;
+using System.Web.Http.Description;
+using Votter.Data;
+using Votter.Models;
+using Votter.Data.Repositories;
+using Votter.Data.Contracts;
+using Votter.Services.Models;
 
 namespace Votter.Services.Controllers
 {
-    using System.Linq;
-    using System.Web.Http;
-    using Votter.Data;
-    using Votter.Models;
-    using Votter.Services.Models;
-
     public class PicturesController : ApiController
     {
-        private static Random random = new Random();
-        private VotterData data;
+        private static readonly Random random = new Random();
+        private readonly VotterData data;
 
         public PicturesController()
         {
-            this.data = new VotterData();
+            data = new VotterData();
         }
 
         public IQueryable<PictureModel> GetPictures()
         {
             return this.data.Pictures
-                       .All()
-                       .Select(x => new PictureModel()
-                              {
-                                  Id = x.PictureId,
-                                  Link = x.Link,
-                                  CategoryId = x.CategoryId,
-                                  ApplicationUserId = x.ApplicationUserId.ToString()
-                              });
-        }
-
-        public IQueryable<PictureModel> GetRandomPictureFromRandomCategory()
-        {
-            int randomCategory = this.GetRandomCategoryId();
-
-            return this.data.Pictures
-                       .All()
-                       .Where(p => p.CategoryId == randomCategory)
-                       .Select(x => new PictureModel()
-                              {
-                                  Id = x.PictureId,
-                                  Link = x.Link,
-                                  CategoryId = x.CategoryId,
-                                  ApplicationUserId = x.ApplicationUserId
-                              })
-                       .Take(2);
+                            .All()
+                            .Select(x => new PictureModel() 
+                            { 
+                                Id = x.PictureId, 
+                                Link = x.Link, 
+                                CategoryId = x.CategoryId, 
+                                ApplicationUserId = x.ApplicationUserId.ToString()
+                            });
         }
 
         [HttpGet]
-        public IQueryable<PictureModel> GetTwoRandomPicsFromCategory(int categoryID)
+        public IQueryable<PictureModel> GetTwoRandomPicsFromCategory(int categoryId)
         {
             return this.data.Pictures
-                       .All()
-                       .Where(p => p.CategoryId == categoryID)
-                       .Select(x => new PictureModel()
-                              {
-                                  Id = x.PictureId,
-                                  Link = x.Link,
-                                  CategoryId = x.CategoryId,
-                                  ApplicationUserId = x.ApplicationUserId
-                              })
-                       .Take(2);
+                            .All()
+                            .Where(p => p.CategoryId == categoryId)
+                            .Select(x => new PictureModel()
+                            {
+                                Id = x.PictureId,
+                                Link = x.Link,
+                                CategoryId = x.CategoryId,
+                                ApplicationUserId = x.ApplicationUserId
+                            })
+                            .Take(2);
+        }
+
+        [HttpGet]
+        public IQueryable<PictureModel> GetRandomPictureFromRandomCategory()
+        {
+            int randomCategory = GetRandomCategoryId();
+            return GetTwoRandomPicsFromCategory(randomCategory);
         }
 
         [HttpGet]
         public IHttpActionResult GetPicture(int id)
         {
-            PictureModel picture = this.data.Pictures.All()
-                                       .Where(x => x.PictureId == id)
-            .Select(x => new PictureModel(){ Id = x.PictureId, Link = x.Link, CategoryId = x.CategoryId, ApplicationUserId = x.ApplicationUserId.ToString() })
-                                       .FirstOrDefault();
+            PictureModel picture = data.Pictures.All()
+                .Where(x=>x.PictureId == id)
+                .Select(x => 
+                    new PictureModel()
+                                { 
+                                    Id = x.PictureId, 
+                                    Link = x.Link, 
+                                    CategoryId = x.CategoryId,
+                                    ApplicationUserId = x.ApplicationUserId.ToString()
+                                })
+                .FirstOrDefault();
 
             if (picture == null)
             {
-                return this.NotFound();
+                return NotFound();
             }
 
-            return this.Ok(picture);
+            return Ok(picture);
         }
 
-        // PUT: api/Pictures/5
-        //[ResponseType(typeof(void))]
-        //public IHttpActionResult PutPicture(PictureModel picture)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    } 
-        //    this.data.Pictures.Entry(picture).State = EntityState.Modified;
+        [HttpPut]
+        public IHttpActionResult PutPicture(PictureModel picture)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    try
-        //    {
-        //        this.data.SaveChanges();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!PictureExists(picture.Id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw new ArgumentException("The picture Id wasn't valid");
-        //        }
-        //    }
-        //    return StatusCode(HttpStatusCode.NoContent);
-        //}
+            //this.data.Pictures.Entry(picture).State = EntityState.Modified;
+
+            try
+            {
+                this.data.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PictureExists(picture.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw new ArgumentException("The picture Id wasn't valid");
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
 
         [HttpPost]
         public IHttpActionResult PostPicture(PictureModel p)
         {
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return this.BadRequest(ModelState);
+                return BadRequest(ModelState);
             }
 
             this.data.Pictures
-            .Add(new Picture()
-                {
-                    CategoryId = p.CategoryId,
-                    ApplicationUserId = p.ApplicationUserId,
-                    Link = p.Link
-                });
+                     .Add(new Picture()
+                     {
+                         CategoryId = p.CategoryId,
+                         ApplicationUserId = p.ApplicationUserId,
+                         Link = p.Link
+                     });
             
             this.data.SaveChanges();
-            return this.CreatedAtRoute("DefaultApi", new { id = p.Id }, p);
+            return CreatedAtRoute("DefaultApi", new { id = p.Id }, p);
         }
 
         [HttpDelete]
@@ -134,13 +140,13 @@ namespace Votter.Services.Controllers
             Picture picture = this.data.Pictures.Find(id);
             if (picture == null)
             {
-                return this.NotFound();
+                return NotFound();
             }
 
             this.data.Pictures.Delete(picture);
             this.data.SaveChanges();
 
-            return this.Ok(string.Format("Picture {0} DELETED", id));
+            return Ok(string.Format("Picture {0} DELETED", id));
         }
 
         protected override void Dispose(bool disposing)

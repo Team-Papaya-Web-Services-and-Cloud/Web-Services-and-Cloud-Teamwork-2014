@@ -83,8 +83,13 @@
       <Project>{4e89d151-c1d6-4c23-b0c2-4c28c129832f}</Project>
       <Name>Votter.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Votter.PubnubApi\Votter.PubnubApi.csproj">
+      <Project>{59e50a8e-4825-46dd-a92b-c51e2b07db55}</Project>
+      <Name>Votter.PubnubApi</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="index.html" />
     <Content Include="Resources\1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
