@@ -22,19 +22,13 @@
 
             string testPicture = @"../../Resources/1.png";
             var file = new FileResource(testPicture);
-            var uploadedfFile = dropbox.UploadPicturesToCloud(file);
-            Console.WriteLine(uploadedfFile.Path);
+            var uploadedGirl = dropbox.UploadGirlsToCloud(file);
+            var uploadedBoy = dropbox.UploadBoysToCloud(file);
 
-            var allPictures = dropbox.GetAllPictures();
-            var picOne = allPictures.Contents[0];
-            var picTwo = allPictures.Contents[allPictures.Contents.Count / 2];
-
-            string picOneFilePath = picOne.Path;
-            var picOneLink = dropbox.GetPictureLink(picOneFilePath);
-            string picTwoFilePath = picTwo.Path;
-            var picTwoLink = dropbox.GetPictureLink(picTwoFilePath);
-            Console.WriteLine(picOneLink.Url);
-            Console.WriteLine(picTwoLink.Url);
+            var picGirlLink = dropbox.GetPictureLink("/Girls/1.png");
+            var picBoyLink = dropbox.GetPictureLink("/Boys/1.png");
+            Console.WriteLine(picGirlLink.Url);
+            Console.WriteLine(picBoyLink.Url);
 
             // Testing Pubnub
             var pubnub = new PubnubAlert();
