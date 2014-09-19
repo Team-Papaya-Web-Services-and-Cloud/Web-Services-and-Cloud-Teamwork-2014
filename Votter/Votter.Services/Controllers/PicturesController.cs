@@ -26,6 +26,7 @@ namespace Votter.Services.Controllers
             data = new VotterData();
         }
 
+
         public IQueryable<PictureModel> GetPictures()
         {
             return this.data.Pictures
