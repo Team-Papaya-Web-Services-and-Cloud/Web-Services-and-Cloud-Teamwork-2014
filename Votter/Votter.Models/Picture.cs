@@ -24,5 +24,9 @@
         public virtual Category Category { get; set; }
 
         public string Link { get; set; }
+
+        public int ScoreId { get; set; }
+
+        public virtual Score Score { get; set; }
     }
 }

@@ -57,8 +57,11 @@ using Votter.Services.Models;
                 DownVotePicture = downVotePicture,
                 UpVotePicture = upVotePicture,
             };
-
             this.data.Votes.Add(newVote);
+
+            downVotePicture.Score.Points++;
+            upVotePicture.Score.Points--;
+
             this.data.SaveChanges();
 
             return Ok(newVote.VoteId);
