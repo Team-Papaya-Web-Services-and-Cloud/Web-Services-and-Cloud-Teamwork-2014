@@ -18,7 +18,8 @@ namespace Votter.Services.Controllers
 {
     public class PicturesController : ApiController
     {
-        VotterData data;
+        private static Random random = new Random();
+        private VotterData data;
 
         public PicturesController()
         {
@@ -38,8 +39,42 @@ namespace Votter.Services.Controllers
                             });
         }
 
+        public IQueryable<PictureModel> GetRandomPictureFromRandomCategory()
+        {
+            int randomCategory = GetRandomCategoryId();
+
+
+            return this.data.Pictures
+                            .All()
+                            .Where(p => p.CategoryId == randomCategory)
+                            .Select(x => new PictureModel()
+                            {
+                                Id = x.PictureId,
+                                Link = x.Link,
+                                CategoryId = x.CategoryId,
+                                ApplicationUserId = x.ApplicationUserId
+                            })
+                            .Take(2);
+        }
+
         [HttpGet]
-        [ResponseType(typeof(PictureModel))]
+        public IQueryable<PictureModel> GetTwoRandomPicsFromCategory(int categoryID)
+        {
+
+            return this.data.Pictures
+                            .All()
+                            .Where(p => p.CategoryId == categoryID)
+                            .Select(x => new PictureModel()
+                            {
+                                Id = x.PictureId,
+                                Link = x.Link,
+                                CategoryId = x.CategoryId,
+                                ApplicationUserId = x.ApplicationUserId
+                            })
+                            .Take(2);
+        }
+
+        [HttpGet]
         public IHttpActionResult GetPicture(int id)
         {
             PictureModel picture = data.Pictures.All()
@@ -140,6 +175,13 @@ namespace Votter.Services.Controllers
         private bool PictureExists(int id)
         {
             return this.data.Pictures.All().Count(e => e.PictureId == id) > 0;
+        }
+
+        private int GetRandomCategoryId()
+        {
+            var categoryIds = this.data.Categories.All().Select(c => c.CategoryId);
+            var skip = (int)(random.NextDouble() * categoryIds.Count());
+            return this.data.Categories.All().OrderBy(c => c.CategoryId).Skip(skip).Take(1).First().CategoryId; 
         }
     }
 }
