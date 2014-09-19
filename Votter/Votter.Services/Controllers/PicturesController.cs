@@ -18,26 +18,25 @@ namespace Votter.Services.Controllers
 {
     public class PicturesController : ApiController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
-        IGenericRepository<Picture> data;
+        VotterData data;
 
         public PicturesController()
         {
-            data = new GenericRepository<Picture>();
+            data = new VotterData();
         }
 
-        // GET: api/Pictures
         public IQueryable<PictureModel> GetPictures()
         {
-            return db.Pictures.Select(x => new PictureModel() { Id = x.PictureId, Link = x.Link, CategoryId = x.CategoryId });
+            return this.data.Pictures
+                            .All()
+                            .Select(x => new PictureModel() { Id = x.PictureId, Link = x.Link, CategoryId = x.CategoryId });
         }
 
-        // GET: api/Pictures/5
         [HttpGet]
         [ResponseType(typeof(PictureModel))]
         public IHttpActionResult GetPicture(int id)
         {
-            PictureModel picture = db.Pictures
+            PictureModel picture = data.Pictures.All()
                 .Where(x=>x.PictureId == id)
                 .Select(x => 
                     new PictureModel()
@@ -55,38 +54,37 @@ namespace Votter.Services.Controllers
         }
 
         // PUT: api/Pictures/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutPicture(PictureModel picture)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //[ResponseType(typeof(void))]
+        //public IHttpActionResult PutPicture(PictureModel picture)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    } 
 
-            db.Entry(picture).State = EntityState.Modified;
+        //    this.data.Pictures.Entry(picture).State = EntityState.Modified;
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PictureExists(picture.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw new ArgumentException("The picture Id wasn't valid");
-                }
-            }
+        //    try
+        //    {
+        //        this.data.SaveChanges();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!PictureExists(picture.Id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw new ArgumentException("The picture Id wasn't valid");
+        //        }
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
 
 
-
-        // POST: api/Pictures
+        [HttpPost]
         [ResponseType(typeof(Picture))]
         public IHttpActionResult PostPicture(Picture picture)
         {
@@ -95,8 +93,8 @@ namespace Votter.Services.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Pictures.Add(picture);
-            db.SaveChanges();
+            this.data.Pictures.Add(picture);
+            this.data.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = picture.PictureId }, picture);
         }
@@ -105,14 +103,14 @@ namespace Votter.Services.Controllers
         [ResponseType(typeof(Picture))]
         public IHttpActionResult DeletePicture(int id)
         {
-            Picture picture = db.Pictures.Find(id);
+            Picture picture = this.data.Pictures.Find(id);
             if (picture == null)
             {
                 return NotFound();
             }
 
-            db.Pictures.Remove(picture);
-            db.SaveChanges();
+            this.data.Pictures.Delete(picture);
+            this.data.SaveChanges();
 
             return Ok(picture);
         }
@@ -121,14 +119,14 @@ namespace Votter.Services.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                this.data.Dispose();
             }
             base.Dispose(disposing);
         }
 
         private bool PictureExists(int id)
         {
-            return db.Pictures.Count(e => e.PictureId == id) > 0;
+            return this.data.Pictures.All().Count(e => e.PictureId == id) > 0;
         }
     }
 }
