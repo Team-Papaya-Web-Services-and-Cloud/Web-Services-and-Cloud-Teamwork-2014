@@ -42,10 +42,12 @@ namespace Votter.Services.Controllers
         [HttpGet]
         public IQueryable<PictureModel> GetTwoRandomPicsFromCategory(int categoryId)
         {
-            return this.data.Pictures
-                            .All()
-                            .Where(p => p.CategoryId == categoryId)
-                            .Select(x => new PictureModel()
+
+            var pictureIds = this.data.Pictures.All();
+            var skip = (int)(random.NextDouble() * pictureIds.Count());
+            var pictures = this.data.Pictures.All().OrderBy(c => c.PictureId).Skip(skip).Take(2); 
+
+            return pictures.Select(x => new PictureModel()
                             {
                                 Id = x.PictureId,
                                 Link = x.Link,
@@ -93,7 +95,7 @@ namespace Votter.Services.Controllers
                 return BadRequest(ModelState);
             }
 
-            //this.data.Pictures.Entry(picture).State = EntityState.Modified;
+
 
             try
             {
@@ -132,6 +134,29 @@ namespace Votter.Services.Controllers
             
             this.data.SaveChanges();
             return CreatedAtRoute("DefaultApi", new { id = p.Id }, p);
+        }
+
+        private IHttpActionResult ValidatePicture(PictureModel p)
+        {
+            var dbContext = new ApplicationDbContext();
+
+            if (p.ApplicationUserId == null || !dbContext.Users.Any(x => x.Id == p.ApplicationUserId))
+            {
+                return BadRequest("ApplicationUserId NOT FOUND");
+            }
+
+            if (p.CategoryId == null || !dbContext.Categories.Any(x => x.CategoryId == p.CategoryId))
+            {
+                return BadRequest("CategoryId NOT FOUND");
+            }
+
+            if (p.Link == null || !p.Link.StartsWith("https://"))
+            {
+                return BadRequest("Invalid Url");
+
+            }
+
+            return Ok();
         }
 
         [HttpDelete]
